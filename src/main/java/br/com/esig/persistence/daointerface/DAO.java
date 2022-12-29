@@ -1,4 +1,4 @@
-package br.com.esig.pesistence.daointerface;
+package br.com.esig.persistence.daointerface;
 
 import java.io.Serializable;
 import java.util.List;

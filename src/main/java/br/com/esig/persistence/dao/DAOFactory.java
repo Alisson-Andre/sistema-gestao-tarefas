@@ -1,4 +1,4 @@
-package br.com.esig.pesistence.dao;
+package br.com.esig.persistence.dao;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -8,8 +8,8 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import br.com.esig.pesistence.daointerface.DAO;
-import br.com.esig.pesistence.model.AbstractEntity;
+import br.com.esig.persistence.daointerface.DAO;
+import br.com.esig.persistence.model.AbstractEntity;
 
 public class DAOFactory {
 

@@ -1,4 +1,4 @@
-package br.com.esig.pesistence.model;
+package br.com.esig.persistence.model;
 
 import java.util.Date;
 
@@ -10,8 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.esig.pesistence.model.enums.Prioridade;
-import br.com.esig.pesistence.model.enums.Situacao;
+import br.com.esig.persistence.model.enums.Prioridade;
+import br.com.esig.persistence.model.enums.Situacao;
 
 @Entity
 @Table(name = "tarefa")

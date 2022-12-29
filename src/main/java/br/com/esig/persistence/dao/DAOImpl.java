@@ -1,4 +1,4 @@
-package br.com.esig.pesistence.dao;
+package br.com.esig.persistence.dao;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import br.com.esig.pesistence.daointerface.DAO;
-import br.com.esig.pesistence.model.AbstractEntity;
+import br.com.esig.persistence.daointerface.DAO;
+import br.com.esig.persistence.model.AbstractEntity;
 
 public class DAOImpl<T extends AbstractEntity> implements DAO<T> {
 	private static final long serialVersionUID = 1L;

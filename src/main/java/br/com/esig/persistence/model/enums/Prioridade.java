@@ -1,4 +1,4 @@
-package br.com.esig.pesistence.model.enums;
+package br.com.esig.persistence.model.enums;
 
 public enum Prioridade {
 

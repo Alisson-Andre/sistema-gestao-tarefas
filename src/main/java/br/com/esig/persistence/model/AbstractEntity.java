@@ -1,4 +1,4 @@
-package br.com.esig.pesistence.model;
+package br.com.esig.persistence.model;
 
 import java.io.Serializable;
 import java.util.Objects;

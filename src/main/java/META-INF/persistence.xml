@@ -3,8 +3,8 @@
 	<persistence-unit name="sistema-gestao-tarefas">
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 	
-	<class>br.com.esig.pesistence.model.AbstractEntity</class>
-	<class>br.com.esig.pesistence.model.Tarefa</class>
+	<class>br.com.esig.persistence.model.AbstractEntity</class>
+	<class>br.com.esig.persistence.model.Tarefa</class>
 
 		<properties>
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
