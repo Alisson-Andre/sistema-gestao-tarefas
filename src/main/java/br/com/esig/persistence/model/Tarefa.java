@@ -18,13 +18,13 @@ import br.com.esig.persistence.model.enums.Situacao;
 public class Tarefa extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 80)
     private String titulo;
 
     @Column(nullable = false)
     private String descricao;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 80)
     private String responsavel;
 
     @Enumerated(EnumType.STRING)

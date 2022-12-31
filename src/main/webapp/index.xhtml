@@ -1,10 +1,168 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html >
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/layout.xhtml">
 
-<body>
-	<h3>Teste</h3>
-</body>
-</html>
+	<ui:define name="titulo"> Gerênciador de Tarefas</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="frm">
+			<p:growl id="messages" />
+
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup>
+
+					<p:commandButton title="Cadastrar nova tarefa" value="Nova"
+						icon="pi pi-plus" styleClass="ui-button-success"
+						actionListener="#{gestaoTarefaBean.prepararNovaTarefa()}"
+						oncomplete="PF('tarefaDialogWidgetVar').show()"
+						update="tarefaDialog" process="@this">
+						<p:resetInput target="tarefaDialog" />
+					</p:commandButton>
+
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="tarefasDataTable" size="small" stripedRows="true"
+				value="#{gestaoTarefaBean.listaTarefas}" var="tarefa"
+				emptyMessage="Nenhuma informação a ser exibida" paginator="true"
+				rows="5" paginatorPosition="bottom" selectionMode="single"
+				rowKey="#{tarefa.id}" widgetVar="customersTable"
+				filterBy="#{gestaoTarefaBean.filterBy}">
+
+				<p:column headerText="Título" sortBy="#{tarefa.titulo}"
+					filterBy="#{tarefa.titulo}" >
+					<p:outputLabel value="#{tarefa.titulo}" />
+				</p:column>
+
+				<p:column headerText="Descrição" sortBy="#{tarefa.descricao}"
+					filterBy="#{tarefa.descricao}" width="450">
+					<p:outputLabel value="#{tarefa.descricao}" />
+				</p:column>
+
+				<p:column headerText="Data" sortBy="#{tarefa.data}"
+					filterBy="#{tarefa.data}" width="100" sortOrder="asc">
+					<p:outputLabel value="#{tarefa.data}" />
+				</p:column>
+
+				<p:column field="situacao" headerText="Situação"
+					filterMatchMode="exact" width="180">
+					<f:facet name="filter">
+						<p:selectOneMenu onchange="PF('customersTable').filter()"
+							styleClass="ui-custom-filter">
+							<f:selectItem itemLabel="TODAS" itemValue="#{null}"
+								noSelectionOption="true" />
+							<f:selectItems value="#{gestaoTarefaBean.situacao}" />
+						</p:selectOneMenu>
+					</f:facet>
+					<p:outputLabel value="#{tarefa.situacao.descricao}" />
+				</p:column>
+
+				<p:column field="prioridade" headerText="Prioridade"
+					filterMatchMode="exact" width="110">
+					<f:facet name="filter">
+						<p:selectOneMenu onchange="PF('customersTable').filter()"
+							styleClass="ui-custom-filter">
+							<f:selectItem itemLabel="TODAS" itemValue="#{null}"
+								noSelectionOption="true" />
+							<f:selectItems value="#{gestaoTarefaBean.prioridade}" />
+						</p:selectOneMenu>
+					</f:facet>
+					<p:outputLabel value="#{tarefa.prioridade.descricao}" />
+				</p:column>
+
+				<p:column headerText="Responsável" sortBy="#{tarefa.responsavel}"
+					filterBy="#{tarefa.responsavel}" width="180">
+					<h:outputText value="#{tarefa.responsavel}" />
+				</p:column>
+
+				<p:column headerText="" width="100">
+					<p:commandButton icon="pi pi-pencil" update="@form" process="@this"
+						oncomplete="PF('tarefaDialogWidgetVar').show()">
+						<f:setPropertyActionListener value="#{tarefa}"
+							target="#{gestaoTarefaBean.tarefa}" />
+					</p:commandButton>
+
+					<p:commandButton action="#{gestaoTarefaBean.excluir()}"
+						icon="pi pi-trash" styleClass="ui-button-danger" update="@form"
+						process="@this">
+						<p:confirm header="Remover"
+							message="Tem certeza que deseja remover #{tarefa.titulo}?"
+							icon="pi pi-exclamation-triangle" />
+						<f:setPropertyActionListener value="#{tarefa}"
+							target="#{gestaoTarefaBean.tarefa}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog id="tarefaDialog" header="Tarefa"
+				widgetVar="tarefaDialogWidgetVar" modal="true" resizable="false"
+				closeOnEscape="true" responsive="true">
+
+				<p:defaultCommand target="salvarCommandButton" scope="tarefaDialog" />
+
+				<p:growl id="messagesDialog" />
+
+				<h:panelGrid id="tarefaPanelGrid" columns="2"
+					rendered="#{gestaoTarefaBean.tarefa ne null}">
+					<p:outputLabel value="Título: " for="titulo" />
+					<p:inputText id="titulo" size="50" maxlength="80"
+						value="#{gestaoTarefaBean.tarefa.titulo}" required="true"
+						requiredMessage="Informe o título" />
+
+					<p:outputLabel value="Descrição: " for="descricao" />
+					<p:inputTextarea id="descricao" cols="52"
+						value="#{gestaoTarefaBean.tarefa.descricao}" required="true"
+						requiredMessage="Informe a descrição" />
+
+					<p:outputLabel value="Responsável: " for="responsavel" />
+					<p:inputText id="responsavel" size="50" maxlength="80"
+						value="#{gestaoTarefaBean.tarefa.responsavel}" required="true"
+						requiredMessage="Informe o responsável" />
+
+					<p:outputLabel value="Prioridade: " for="prioridade" />
+					<p:selectOneMenu id="prioridade"
+						value="#{gestaoTarefaBean.tarefa.prioridade}" required="true"
+						requiredMessage="Informe a prioridade">
+						<f:selectItem itemLabel="Selecione..." />
+						<f:selectItems value="#{gestaoTarefaBean.prioridade}"
+							var="tipoPrioridade" itemLabel="#{tipoPrioridade.descricao}"
+							itemValue="#{tipoPrioridade}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Data: " for="data" />
+					<p:datePicker id="data" value="#{gestaoTarefaBean.tarefa.data}"
+						pattern="dd/MM/yyyy" required="true"
+						requiredMessage="Informe a data" />
+
+					<p:outputLabel value="Situação: " for="situacao" />
+					<p:selectOneRadio id="situacao"
+						value="#{gestaoTarefaBean.tarefa.situacao}" required="true"
+						requiredMessage="Informe a situação">
+						<f:selectItems value="#{gestaoTarefaBean.situacao}"
+							var="tipoSituacao" itemLabel="#{tipoSituacao.descricao}"
+							itemValue="#{tipoSituacao}" />
+					</p:selectOneRadio>
+
+					<p:outputLabel />
+					<p:outputLabel />
+
+					<p:commandButton id="salvarCommandButton" value="Salvar"
+						actionListener="#{gestaoTarefaBean.salvar()}"
+						update="tarefasDataTable tarefaPanelGrid messagesDialog"
+						oncomplete="if(!args.validationFailed) PF('tarefaDialogWidgetVar').hide()"
+						process="tarefaDialog" />
+
+					<p:commandButton id="cancelarCommandButton" value="Cancelar"
+						class="ui-button-danger"
+						oncomplete="PF('tarefaDialogWidgetVar').hide()"
+						process="tarefaDialog" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Tarefas</title>
+	<h:outputStylesheet library="css" name="estilo.css" />
+</h:head>
+
+<h:body>
+	<header>
+		<h:graphicImage library="imagens" name="logoTarefa.png" />
+	</header>
+
+	<h2>
+		<ui:insert name="titulo" />
+	</h2>
+
+	<div id="conteudo">
+		<ui:insert name="conteudo" />
+	</div>
+
+	<footer> Alisson André (84)99706-9570 </footer>
+
+	<h:form>
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" >
+			<p:commandButton value="Sim" type="button" icon="pi pi-check" styleClass="ui-confirmdialog-yes" />
+			<p:commandButton value="Não" type="button" icon="pi pi-times" styleClass="ui-confirmdialog-no ui-button-secondary" />
+		</p:confirmDialog>
+	</h:form>
+</h:body>
+
+</html>
