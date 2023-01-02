@@ -4,11 +4,11 @@
 
 A aplicação consiste em um gerenciador de tarefas que possui as funcionalidades de criar, atualizar, remover, listar e filtrar tarefas por diferentes campos. A aplicação foi desenvolvida na IDE Eclipse utilizando as tecnologias Java, JSF, Primefaces, JPA/Hibernate e CDI, a persistência em banco de dados PostegreSQL, as dependências gerenciadas pelo Maven e o WildFly como servidor.
 
-#### Cadastro
-![cadastrarTarefa](https://user-images.githubusercontent.com/103791966/210238684-ba8c5426-620e-4f93-8833-bc5240eb91a1.png)
+#### Cadastro/Edição
+![cadastrarTarefa](https://user-images.githubusercontent.com/103791966/210242563-e248edcc-b634-4afb-b9e6-fc7be14aa531.png)
 
 #### Listagem
-![ListaTarefa](https://user-images.githubusercontent.com/103791966/210239772-28501935-3a3d-46ae-809c-1187e71ca5d3.png)
+![ListaTarefa](https://user-images.githubusercontent.com/103791966/210242633-54a67e4e-62f8-4650-8bd3-801f3c36b2cd.png)
 
 ### Instruções para execução em um ambiente local
 - Baixe o repositório (https://github.com/Alisson-Andre/sistema-gestao-tarefas.git);
