@@ -1,0 +1,166 @@
+<!DOCTYPE html >
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/layout.xhtml">
+
+	<ui:define name="titulo">Gerenciador de Tarefas</ui:define>
+
+
+	<ui:define name="conteudo">
+
+		<h:form id="frm">
+
+			<p:growl id="messages" />
+
+			<h:commandButton value="+ Nova Tarefa"
+				action="#{tarefaBean.prepararNovaTarefa()}" />
+
+			<div align="left">
+
+				<h3>Filtrar</h3>
+
+				<h:panelGrid columns="13">
+					<h:outputLabel value="Número:" for="numero" />
+					<h:inputText id="numero" value="#{tarefaBean.tarefaFiltro.id}"
+						size="5" />
+
+					<h:outputLabel value="Título:" for="titulo" />
+					<h:inputText id="titulo" value="#{tarefaBean.tarefaFiltro.titulo}" />
+
+					<h:outputLabel value="Descrição:" for="descricao" />
+					<h:inputText id="descricao"
+						value="#{tarefaBean.tarefaFiltro.descricao}" />
+
+					<h:outputLabel value="Responsável:" for="responsavel" />
+					<h:inputText id="responsavel"
+						value="#{tarefaBean.tarefaFiltro.responsavel}" />
+
+					<h:outputLabel value="Prioridade:" for="prioridade" />
+					<h:selectOneMenu id="prioridade"
+						value="#{tarefaBean.tarefaFiltro.prioridade}">
+						<f:selectItem itemLabel="TODAS" itemValue="#{null}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{tarefaBean.prioridade}"
+							var="tipoPrioridade" itemLabel="#{tipoPrioridade.descricao}"
+							itemValue="#{tipoPrioridade}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel value="Situação:" for="situacao" />
+					<h:selectOneMenu id="situacao"
+						value="#{tarefaBean.tarefaFiltro.situacao}">
+						<f:selectItems value="#{tarefaBean.situacao}" var="tipoSituacao"
+							itemLabel="#{tipoSituacao.descricao}" itemValue="#{tipoSituacao}" />
+					</h:selectOneMenu>
+
+					<h:commandButton value="Buscar Tarefas"
+						action="#{tarefaBean.listaFiltrada()}" />
+				</h:panelGrid>
+			</div>
+			<br />
+			<div align="center">
+				<h:dataTable id="tabela" value="#{tarefaBean.listaTarefas}"
+					var="tarefaComFiltro" width="100%" rowClasses="linha1, linha2">
+
+					<h:column>
+						<f:facet name="header">Número</f:facet>
+						<h:outputText value="#{tarefaComFiltro.id}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Título</f:facet>
+						<h:outputText value="#{tarefaComFiltro.titulo}"
+							rendered="#{not tarefaComFiltro.tarefaEdit}" />
+						<h:inputText value="#{tarefaComFiltro.titulo}"
+							rendered="#{tarefaComFiltro.tarefaEdit}" required="true"
+							requiredMessage="Informe um título" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Descrição</f:facet>
+						<h:outputText value="#{tarefaComFiltro.descricao}"
+							rendered="#{not tarefaComFiltro.tarefaEdit}" />
+						<h:inputText value="#{tarefaComFiltro.descricao}"
+							rendered="#{tarefaComFiltro.tarefaEdit}" required="true"
+							requiredMessage="Informe uma descrição" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Responsável</f:facet>
+						<h:outputText value="#{tarefaComFiltro.responsavel}"
+							rendered="#{not tarefaComFiltro.tarefaEdit}" />
+						<h:inputText value="#{tarefaComFiltro.responsavel}"
+							rendered="#{tarefaComFiltro.tarefaEdit}" required="true"
+							requiredMessage="Informe um responsável" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Data</f:facet>
+						<h:outputText value="#{tarefaComFiltro.data}"
+							rendered="#{not tarefaComFiltro.tarefaEdit}" />
+						<h:inputText value="#{tarefaComFiltro.data}"
+							rendered="#{tarefaComFiltro.tarefaEdit}" required="true"
+							converterMessage="Informe a data no formato dd/mm/yyyy"
+							requiredMessage="Informe uma data no formato dd/mm/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Fortaleza" />
+						</h:inputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Prioridade</f:facet>
+						<h:outputText value="#{tarefaComFiltro.prioridade}"
+							rendered="#{not tarefaComFiltro.tarefaEdit}" />
+						<h:selectOneMenu id="prioridade"
+							rendered="#{tarefaComFiltro.tarefaEdit}"
+							value="#{tarefaComFiltro.prioridade}" required="true"
+							requiredMessage="Informe a prioridade">
+							<f:selectItem></f:selectItem>
+							<f:selectItems value="#{tarefaBean.prioridade}" />
+						</h:selectOneMenu>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Situação</f:facet>
+						<h:outputText value="#{tarefaComFiltro.situacao}"
+							rendered="#{not tarefaComFiltro.tarefaEdit}" />
+						<h:selectOneMenu id="situacao"
+							rendered="#{tarefaComFiltro.tarefaEdit}"
+							value="#{tarefaComFiltro.situacao}" required="true"
+							requiredMessage="Informe a situação">
+							<f:selectItem></f:selectItem>
+							<f:selectItems value="#{tarefaBean.situacao}" />
+						</h:selectOneMenu>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Ações</f:facet>
+						<div align="center">
+							<h:commandButton action="#{tarefaBean.salvarTarefaEditada()}"
+								value="Salvar" rendered="#{tarefaComFiltro.tarefaEdit}" />
+							<h:commandLink value="Editar"
+								action="#{tarefaBean.editTarefa(tarefaComFiltro)}"
+								rendered="#{not tarefaBean.tarefa.tarefaEdit}">
+								<f:setPropertyActionListener value="#{tarefaComFiltro}"
+									target="#{tarefaBean.tarefa}" />
+							</h:commandLink>
+							|
+							<h:commandLink value="Excluir"
+								action="#{tarefaBean.excluir(tarefaComFiltro)}">
+							</h:commandLink>
+							|
+							<h:commandLink value="Concluir"
+								action="#{tarefaBean.tarefaConcluir()}"
+								rendered="#{tarefaBean.renderConcluido(tarefaComFiltro)}">
+								<f:setPropertyActionListener value="#{tarefaComFiltro}"
+									target="#{tarefaBean.tarefa}" />
+							</h:commandLink>
+						</div>
+					</h:column>
+				</h:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

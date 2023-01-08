@@ -48,3 +48,16 @@ h1 {
 button.ui-button {
     margin-right: .5rem;
 }
+
+tr > th {
+	background-color: #DDD;
+}
+
+tr.linha1 > td {
+	background-color: #EEE;
+}
+
+tr.linha2 > td {
+	background-color: #FFF;
+}
+

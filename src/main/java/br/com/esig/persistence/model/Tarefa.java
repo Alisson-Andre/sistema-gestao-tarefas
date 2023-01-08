@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.com.esig.persistence.model.enums.Prioridade;
 import br.com.esig.persistence.model.enums.Situacao;
@@ -17,27 +18,44 @@ import br.com.esig.persistence.model.enums.Situacao;
 @Table(name = "tarefa")
 public class Tarefa extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Column(nullable = false, length = 80)
-    private String titulo;
+	private String titulo;
 
-    @Column(nullable = false)
-    private String descricao;
+	@Column(nullable = false)
+	private String descricao;
 
-    @Column(nullable = false, length = 80)
-    private String responsavel;
+	@Column(nullable = false, length = 80)
+	private String responsavel;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Prioridade prioridade;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Prioridade prioridade;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Situacao situacao;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Situacao situacao;
 
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    private Date data;
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	private Date data;
+
+	@Transient
+	private boolean tarefaEdit;
+
+	public Tarefa() {
+	}
+
+	public Tarefa(String titulo, String descricao, String responsavel, Prioridade prioridade, Situacao situacao,
+			Date data) {
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.responsavel = responsavel;
+		this.prioridade = prioridade;
+		this.situacao = situacao;
+		this.data = data;
+		this.tarefaEdit = false;
+	}
 
 	public String getTitulo() {
 		return titulo;
@@ -86,5 +104,13 @@ public class Tarefa extends AbstractEntity {
 	public void setData(Date data) {
 		this.data = data;
 	}
-    
+
+	public boolean isTarefaEdit() {
+		return tarefaEdit;
+	}
+
+	public void setTarefaEdit(boolean tarefaEdit) {
+		this.tarefaEdit = tarefaEdit;
+	}
+
 }
