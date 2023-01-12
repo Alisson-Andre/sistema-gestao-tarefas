@@ -42,7 +42,7 @@ public class TarefaBean implements Serializable {
 	@PostConstruct
 	public void carregarTarefas() {
 		listaTarefas = daoTarefaFilter.listagemTarefaEmAndamento();
-
+		tarefa = new Tarefa();
 	}
 
 	public void listaFiltrada() {
